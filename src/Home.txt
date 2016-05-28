@@ -1,0 +1,6 @@
+background>>background: url(../img/olive-orchards8.jpg); background-size: cover;
+background2>>background: green
+1st>>item Alpha
+2nd>>item Beta
+3rd>>item Charlie
+4th>>item Delta

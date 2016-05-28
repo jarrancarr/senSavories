@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{{.Title}}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/sens.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	</head>
+	<body style="{{item "background"}}">
+		<div class="container">
+			<div class="row"> 
+				<div class="col-xs-6 dfn strong panel"><h1>{{.Title}}</h1></div>
+				<div class="col-xs-6"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					{{page "nav"}}
+				</div>
+				<div class="col-xs-10">
+					{{page "body"}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					{{item "1st"}}
+				</div>
+				<div class="col-xs-3">
+					{{item "2nd"}}
+				</div>
+				<div class="col-xs-3">
+					{{item "3rd"}}
+				</div>
+				<div class="col-xs-3">
+					{{item "4th"}}
+				</div>
+			</div>
+		</div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

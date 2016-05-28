@@ -1,0 +1,5 @@
+<ul class="nav nav-pills nav-stacked">
+	{{range $index, $element := menu "nav" }}
+	<li role="presentation" class="active"><a href="{{$element.Url}}">{{$element.Data}}</a></li>
+	{{end}}
+</ul>
