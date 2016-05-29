@@ -1,0 +1,3 @@
+background>>background: url(../img/olive-orchards6.jpg); background-size: cover;
+banner>>../img/sensavories.svg
+test>>This is where you edit things.
