@@ -15,6 +15,7 @@ import (
 	"github.com/jarrancarr/website"
 	"github.com/jarrancarr/website/ecommerse"
 	"github.com/jarrancarr/website/html"
+	"github.com/jarrancarr/website/service"
 )
 
 var Shelf []ecommerse.Category
@@ -41,7 +42,7 @@ func setup() {
 		AddItem(&html.HTMLMenuItem{"/login", "login", html.HTMLElement{}}).
 		Add("nav nav-pills nav-stacked", "", "")
 
-	senSavories.addService("message", service.CreateMessageService())
+	senSavories.AddService("message", service.CreateMessageService())
 	head := addPage(senSavories, "", "head", "/head")
 	senSavories.AddPage("head", head)
 	nav := addPage(senSavories, "nav", "nav", "")
@@ -50,8 +51,8 @@ func setup() {
 	main := addPage(senSavories, "senSavories", "main", "/")
 	main.AddTable("cart", []string{"A", "B", "C", "D"}, []string{"1", "2", "3", "4"}).AddClass("table")
 	addPage(senSavories, "Home", "home", "/home")
-	addPage(senSavories, "SenSavories-edit", "edit", "/edit")
-	addPage(senSavories, "SenSavories", "test", "/test")
+	addPage(senSavories, "senSavories-edit", "edit", "/edit")
+	addPage(senSavories, "senSavories", "test", "/test")
 	addPage(senSavories, "Home", "home", "/secure").SetSecure()
 	addPage(senSavories, "message", "message", "/message")
 	addPage(senSavories, "", "login", "/login").AddPostHandler("login",
