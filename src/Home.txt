@@ -1,4 +1,4 @@
-background>>background: url(../img/olive-orchards8.jpg); background-size: cover;
+background>>../img/oliveOrchard6.bpg
 background2>>background: green
 1st>>item Alpha
 2nd>>item Beta

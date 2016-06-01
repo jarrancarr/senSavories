@@ -37,38 +37,27 @@ func setup() {
 		AddItem(&html.HTMLMenuItem{"/edit", "Edit", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/secure", "Secure", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/home", "Home", html.HTMLElement{}}).
+		AddItem(&html.HTMLMenuItem{"/message", "message", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/login", "login", html.HTMLElement{}}).
 		Add("nav nav-pills nav-stacked", "", "")
 
-	nav, navPageErr := website.LoadPage(senSavories, "nav", "nav", "")
-	if navPageErr != nil {
-		fmt.Println("Error creating web page: " + navPageErr.Error())
-		os.Exit(1)
-	}
+	senSavories.addService("message", service.CreateMessageService())
+	head := addPage(senSavories, "", "head", "/head")
+	senSavories.AddPage("head", head)
+	nav := addPage(senSavories, "nav", "nav", "")
 	senSavories.AddPage("nav", nav)
 
-	main, mainPageErr := website.LoadPage(senSavories, "senSavories", "main", "/")
-	if mainPageErr != nil {
-		fmt.Println("Error creating web page: " + mainPageErr.Error())
-		os.Exit(1)
-	}
-
-	website.LoadPage(senSavories, "Home", "home", "/home")
-	//	if homePageErr != nil {
-	//		fmt.Println("Error creating web page: " + homePageErr.Error())
-	//		os.Exit(1)
-	//	}
-
-	website.LoadPage(senSavories, "SenSavories", "edit", "/edit")
-
-	secure, securePageErr := website.LoadPage(senSavories, "Home", "home", "/secure")
-	if securePageErr != nil {
-		fmt.Println("Error creating web page: " + securePageErr.Error())
-		os.Exit(1)
-	}
-	secure.SetRequireLogin()
-
+	main := addPage(senSavories, "senSavories", "main", "/")
 	main.AddTable("cart", []string{"A", "B", "C", "D"}, []string{"1", "2", "3", "4"}).AddClass("table")
+	addPage(senSavories, "Home", "home", "/home")
+	addPage(senSavories, "SenSavories-edit", "edit", "/edit")
+	addPage(senSavories, "SenSavories", "test", "/test")
+	addPage(senSavories, "Home", "home", "/secure").SetSecure()
+	addPage(senSavories, "message", "message", "/message")
+	addPage(senSavories, "", "login", "/login").AddPostHandler("login",
+		func(w http.ResponseWriter, r *http.Request) {
+			senSavories.Service["account"].Execute(r.FormValue("name"), "", "")
+		})
 
 	Shelf = []ecommerse.Category{
 		ecommerse.Category{"Oils", "Olive Oils", "oils.png"},
@@ -77,4 +66,13 @@ func setup() {
 		ecommerse.Category{"Teas", "Quality East African Teas", "teas.png"},
 		ecommerse.Category{"Coffee", "Coffee from Africa", "coffee.png"},
 	}
+}
+
+func addPage(site *website.Site, name, template, url string) *website.Page {
+	page, err := website.LoadPage(site, name, template, url)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	return page
 }
