@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{page "head"}}
+	</head>
+	<body onload='setBackground("{{item "background"}}")' >
+		<div style="position: fixed; top: 5%; left:5%; height: 60%; width: 50%; z-index: 0;">
+			<div class="container" style="height: 60%">
+				<div id="banner" class="row"> 
+					<div class="col-xs-12">
+						<img src="../img/sensavories.svg">
+					</div>
+				</div>
+				<div class="panel">
+					<div class="row"> 
+						<div class="col-xs-2">
+							{{menu "nav"}}
+						</div>
+						<div class="col-xs-10">
+							<div class="container">
+								<form action="/login" method="post">
+									<span>
+										User Name: <input type="text" name="Name">
+										Password: <input type="secret" name="password">
+									</span>
+									<input type="submit" value="Login">
+									<input type="hidden" name="postProcessingHandler" value="login">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
