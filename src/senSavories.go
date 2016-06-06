@@ -43,7 +43,8 @@ func setup() {
 		Add("nav nav-pills nav-stacked", "", "")
 
 	senSavories.AddService("message", service.CreateMessageService())
-	senSavories.AddService("account", service.CreateAccountService())
+	secure := service.CreateAccountService()
+	senSavories.AddService("account", secure)
 	head := addPage(senSavories, "", "head", "/head")
 	senSavories.AddPage("head", head)
 	nav := addPage(senSavories, "nav", "nav", "")
@@ -54,7 +55,7 @@ func setup() {
 	addPage(senSavories, "Home", "home", "/home")
 	addPage(senSavories, "senSavories-edit", "edit", "/edit")
 	addPage(senSavories, "senSavories", "test", "/test")
-	addPage(senSavories, "Home", "home", "/secure").SetSecure()
+	addPage(senSavories, "Home", "home", "/secure").AddInitProcessor(secure.ValidateSession)
 	addPage(senSavories, "message", "message", "/message")
 	addPage(senSavories, "", "login", "/login").AddPostHandler("login",
 		func(w http.ResponseWriter, r *http.Request) {
