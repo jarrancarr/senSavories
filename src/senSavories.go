@@ -43,6 +43,7 @@ func setup() {
 		Add("nav nav-pills nav-stacked", "", "")
 
 	senSavories.AddService("message", service.CreateMessageService())
+	senSavories.AddService("account", service.CreateAccountService())
 	head := addPage(senSavories, "", "head", "/head")
 	senSavories.AddPage("head", head)
 	nav := addPage(senSavories, "nav", "nav", "")
@@ -57,7 +58,10 @@ func setup() {
 	addPage(senSavories, "message", "message", "/message")
 	addPage(senSavories, "", "login", "/login").AddPostHandler("login",
 		func(w http.ResponseWriter, r *http.Request) {
-			senSavories.Service["account"].Execute(r.FormValue("name"), "", "")
+			w.Write([]byte(senSavories.Service["account"].Execute(
+				"Login",
+				r.FormValue("UserName"),
+				r.FormValue("Password"))))
 		})
 
 	Shelf = []ecommerse.Category{
