@@ -57,13 +57,7 @@ func setup() {
 	addPage(senSavories, "senSavories", "test", "/test")
 	addPage(senSavories, "Home", "home", "/secure").AddInitProcessor(secure.ValidateSession)
 	addPage(senSavories, "message", "message", "/message")
-	addPage(senSavories, "", "login", "/login").AddPostHandler("login",
-		func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte(senSavories.Service["account"].Execute(
-				"Login",
-				r.FormValue("UserName"),
-				r.FormValue("Password"))))
-		})
+	addPage(senSavories, "", "login", "/login").AddPostHandler("login", secure.LoginPostHandler)
 
 	Shelf = []ecommerse.Category{
 		ecommerse.Category{"Oils", "Olive Oils", "oils.png"},
