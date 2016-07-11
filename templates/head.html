@@ -12,6 +12,9 @@ function setBackground(filename){
 	canvas.style.visibility = "hidden";
 	canvas.width = $(document).width();
 	canvas.height = $(document).height();
+	canvas.style.opacity = "0.0";
+	canvas.style.overflow = "hidden";
+	canvas.style.transition = "background 4.5s linear";
 	document.body.appendChild(canvas);
 	var ctx = canvas.getContext("2d");
 	var img = new BPGDecoder(ctx);
