@@ -48,7 +48,7 @@ func setup() {
 	senSavories.AddService("message", service.CreateMessageService())
 
 	// template subpages
-	senSavories.AddPage("head", "head", "")
+	senSavories.AddPage("", "head", "")
 	senSavories.AddPage("nav", "nav", "")
 
 	// pages
@@ -57,6 +57,8 @@ func setup() {
 	senSavories.AddPage("Home", "home", "/home")
 	senSavories.AddPage("senSavories-edit", "edit", "/edit")
 	senSavories.AddPage("senSavories", "test", "/test")
+	secure := senSavories.AddPage("senSavories", "secure", "/secure")
+	secure.AddInitProcessor(acs.CheckSecure)
 	senSavories.AddPage("message", "message", "/message")
 	login := senSavories.AddPage("login", "login", "/login")
 	login.AddPostHandler("login", acs.LoginPostHandler)

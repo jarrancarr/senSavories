@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{page "head"}}
+	</head>
+	<body onload='setBackground("{{item "background"}}")' >
+		<div class="container">
+			<div class="row"> 
+				<div class="col-xs-6 dfn strong panel"><h1>{{.Title}}</h1></div>
+				<div class="col-xs-6"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					{{page "nav"}}
+				</div>
+				<div class="col-xs-10">
+					{{page "body"}}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
