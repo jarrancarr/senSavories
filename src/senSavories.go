@@ -33,7 +33,7 @@ func main() {
 
 func setup() {
 	//website
-	senSavories = website.CreateSite("senSavories")
+	senSavories = website.CreateSite("senSavories", "localhost:8090")
 	senSavories.AddMenu("nav").
 		AddItem(&html.HTMLMenuItem{"/test", "Test", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/edit", "Edit", html.HTMLElement{}}).
@@ -57,11 +57,13 @@ func setup() {
 	senSavories.AddPage("Home", "home", "/home")
 	senSavories.AddPage("senSavories-edit", "edit", "/edit")
 	senSavories.AddPage("senSavories", "test", "/test")
-	secure := senSavories.AddPage("senSavories", "secure", "/secure")
-	secure.AddInitProcessor(acs.CheckSecure)
+	senSavories.AddPage("senSavories", "secure", "/secure")
 	senSavories.AddPage("message", "message", "/message")
 	login := senSavories.AddPage("login", "login", "/login")
 	login.AddPostHandler("login", acs.LoginPostHandler)
+	login.AddBypassSiteProcessor("secure")
+	
+	senSavories.AddSiteProcessor("secure", acs.CheckSecure)
 
 	//	Shelf = []ecommerse.Category{
 	//		ecommerse.Category{"Oils", "Olive Oils", "oils.png"},

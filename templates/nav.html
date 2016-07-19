@@ -1,4 +1,5 @@
 {{menu "nav"}}
-{{if "True" eq | service "account" "isLoggedIn"}}
-<a href='/logout'>Logout</a></li><li role='presentation' class='active'>
+{{$x := service "account" "isLoggedIn"}}
+{{if eq $x "True"}}
+Logged in
 {{end}}
