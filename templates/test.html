@@ -2,6 +2,34 @@
 <html>
 	<head>
 		{{page "head"}}
+		<script>		
+			$(function() {
+				console.log("jarran Carr!")
+				$('input').on('click', function() {
+					console.log("button clicked!")
+					$.ajax({
+						url: '/test',
+						type: 'AJAX',
+						headers: { 'ajaxProcessingHandler':'test123' },
+						dataType: 'html',
+						data: { 'greet':'hello there, partner!' },
+						success: function(data, textStatus, jqXHR) {
+							var ul = $( "<ul/>", {"class": "my-new-list"}).appendTo( "body" );
+							$(data.items).each(
+								function(index, item) { 
+									ul.append( 
+										$(document.createElement('li')).text(item) 
+									);
+								}
+							);
+						},
+						error: function(data, textStatus, jqXHR) {
+							console.log("button fail!");
+						}
+					});
+				});
+			});
+		</script>
 	</head>
 	<body onload='setBackground("{{item "background"}}")' >
 		<div class="container">
@@ -15,6 +43,7 @@
 				</div>
 				<div class="col-xs-10">
 					{{page "body"}}
+					<input type="button" value="test" />
 				</div>
 			</div>
 		</div>

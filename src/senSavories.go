@@ -39,16 +39,18 @@ func setup() {
 		AddItem(&html.HTMLMenuItem{"/edit", "Edit", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/secure", "Secure", html.HTMLElement{}}).
 		AddItem(&html.HTMLMenuItem{"/home", "Home", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/message", "message", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/login", "login", html.HTMLElement{}}).
+		AddItem(&html.HTMLMenuItem{"/message", "Message", html.HTMLElement{}}).
+		AddItem(&html.HTMLMenuItem{"/login", "Login", html.HTMLElement{}}).
 		Add("nav nav-pills nav-stacked", "", "")
 
 	acs := website.CreateAccountService()
 	senSavories.AddService("account", acs)
-	senSavories.AddService("message", service.CreateMessageService())
+	mgs := service.CreateMessageService(acs)
+	senSavories.AddService("message", mgs)
 
 	// template subpages
 	senSavories.AddPage("", "head", "")
+	senSavories.AddPage("", "banner", "")
 	senSavories.AddPage("nav", "nav", "")
 
 	// pages
@@ -56,8 +58,9 @@ func setup() {
 	main.AddTable("cart", []string{"A", "B", "C", "D"}, []string{"1", "2", "3", "4"}).AddClass("table")
 	senSavories.AddPage("Home", "home", "/home")
 	senSavories.AddPage("senSavories-edit", "edit", "/edit")
-	senSavories.AddPage("senSavories", "test", "/test")
-	senSavories.AddPage("senSavories", "secure", "/secure")
+	test := senSavories.AddPage("test", "test", "/test")
+	test.AddAJAXHandler("test123", mgs.TestAJAX)
+	senSavories.AddPage("", "secure", "/secure")
 	senSavories.AddPage("message", "message", "/message")
 	login := senSavories.AddPage("login", "login", "/login")
 	login.AddPostHandler("login", acs.LoginPostHandler)

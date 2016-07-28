@@ -8,20 +8,24 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script> "use strict";
 function setBackground(filename){
-	var canvas = document.createElement("canvas");
-	canvas.style.visibility = "hidden";
-	canvas.width = $(document).width();
-	canvas.height = $(document).height();
-	canvas.style.opacity = "0.0";
-	canvas.style.overflow = "hidden";
-	canvas.style.transition = "background 4.5s linear";
-	document.body.appendChild(canvas);
-	var ctx = canvas.getContext("2d");
-	var img = new BPGDecoder(ctx);
-	img.onload = function() {
-		ctx.putImageData(this.imageData, 0, 0);
-		document.body.style.background = "url('" + canvas.toDataURL("image/png") + "')";
-	};
-  	img.load(filename);
+	if (filename.indexOf("bpg") == filename.length - 3) {
+		var canvas = document.createElement("canvas");
+		canvas.style.visibility = "hidden";
+		canvas.width = $(document).width();
+		canvas.height = $(document).height();
+		canvas.style.opacity = "0.0";
+		canvas.style.overflow = "hidden";
+		canvas.style.transition = "background 4.5s linear";
+		document.body.appendChild(canvas);
+		var ctx = canvas.getContext("2d");
+		var img = new BPGDecoder(ctx);
+		img.onload = function() {
+			ctx.putImageData(this.imageData, 0, 0);
+			document.body.style.background = "url('" + canvas.toDataURL("image/png") + "')";
+		};
+	  	img.load(filename);
+	} else {
+		document.body.style.background;
+	}
 }
         </script>
