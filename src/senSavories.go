@@ -14,7 +14,6 @@ import (
 
 	"github.com/jarrancarr/website"
 	"github.com/jarrancarr/website/ecommerse"
-	"github.com/jarrancarr/website/html"
 	"github.com/jarrancarr/website/service"
 )
 
@@ -35,14 +34,15 @@ func setup() {
 	//website
 	senSavories = website.CreateSite("senSavories", "localhost:8090")
 	senSavories.AddMenu("nav").
-		AddItem(&html.HTMLMenuItem{"/test", "Test", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/edit", "Edit", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/secure", "Secure", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/home", "Home", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/message", "Message", html.HTMLElement{}}).
-		AddItem(&html.HTMLMenuItem{"/login", "Login", html.HTMLElement{}}).
+		AddItem("Test", "/test").
+		AddItem("Edit", "/edit").
+		AddItem("Secure", "/secure").
+		AddItem("Home", "/home").
+		AddItem("Message", "/message").
+		AddItem("Login", "/login").
 		Add("nav nav-pills nav-stacked", "", "")
 
+	// services
 	acs := website.CreateAccountService()
 	senSavories.AddService("account", acs)
 	mgs := service.CreateMessageService(acs)
