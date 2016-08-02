@@ -1,2 +1,2 @@
-background>>yellow
-background2>>../img/oliveOrchard7.bpg
+background>>yellow 0 0
+background2>>../img/oliveOrchard7.bpg 1024 768

@@ -1,3 +1,3 @@
-background>>../img/oliveOrchard7.bpg
+background>>../img/oliveOrchard7.bpg 1024 768
 banner>>../img/sensavories.svg
 test>>This is where you edit things.

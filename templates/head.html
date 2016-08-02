@@ -3,16 +3,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="css/sens.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+
 		<script src="../js/bpgdec8a.js"></script>
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 		<script> "use strict";
-function setBackground(filename){
+function setBackground(filename, x, y){
 	if (filename.indexOf("bpg") == filename.length - 3) {
 		var canvas = document.createElement("canvas");
 		canvas.style.visibility = "hidden";
-		canvas.width = $(document).width();
-		canvas.height = $(document).height();
+		canvas.width = parseInt(x);
+		canvas.height = parseInt(y);
 		canvas.style.opacity = "0.0";
 		canvas.style.overflow = "hidden";
 		canvas.style.transition = "background 4.5s linear";
@@ -25,7 +28,7 @@ function setBackground(filename){
 		};
 	  	img.load(filename);
 	} else {
-		document.body.style.background;
+		document.body.style.background = filename;
 	}
 }
         </script>

@@ -2,13 +2,13 @@ package main
 
 import (
 	//"crypto/md5"
-	//"fmt"
+	"fmt"
 	//"io"
 	//"io/ioutil"
 	"net/http"
 	//"os"
 	//"strconv"
-	//"html/template"
+	"html/template"
 	//"strings"
 	//"time"
 
@@ -47,6 +47,7 @@ func setup() {
 	senSavories.AddService("account", acs)
 	mgs := service.CreateMessageService(acs)
 	senSavories.AddService("message", mgs)
+	senSavories.AddSiteProcessor("secure", acs.CheckSecure)
 
 	// template subpages
 	senSavories.AddPage("", "head", "")
@@ -55,7 +56,9 @@ func setup() {
 
 	// pages
 	main := senSavories.AddPage("senSavories", "main", "/")
-	main.AddTable("cart", []string{"A", "B", "C", "D"}, []string{"1", "2", "3", "4"}).AddClass("table")
+	main.AddBypassSiteProcessor("secure")
+	main.AddTable("cart", []string{"A", "B", "C", "D"}, []string{"1", "2", "3", "4"}).AddClass("table").AddId("cart")
+	main.AddTable("ppppxxxx", []string{"X", "Y", "Z"}, []string{"91", "82", "73", "64", "55", "46"}).AddClass("table").AddId("ppppxxxx")
 	senSavories.AddPage("Home", "home", "/home")
 	senSavories.AddPage("senSavories-edit", "edit", "/edit")
 	test := senSavories.AddPage("test", "test", "/test")
@@ -66,7 +69,58 @@ func setup() {
 	login.AddPostHandler("login", acs.LoginPostHandler)
 	login.AddBypassSiteProcessor("secure")
 	
-	senSavories.AddSiteProcessor("secure", acs.CheckSecure)
+	chess := senSavories.AddPage("chess", "chess", "/chess")
+	
+	scaleX := 45
+	scaleY := 35
+	offX := 120
+	offY := 0
+	spaces := 4
+	for y := 0; y<spaces; y++ {
+		for x := 0; x<spaces+1+y; x++ {
+			if x>0 {				
+				chess.Data["svg"] = append(chess.Data["svg"], 
+					template.HTML(
+						fmt.Sprintf(
+							"<polygon points='%d,%d %d,%d %d,%d' style='fill:#842;stroke:purple;stroke-width:1' />",
+								offX+(2*x-y)*scaleX, offY+2*scaleY*y, 
+								offX+(2*x-y+1)*scaleX, offY+scaleY*2+2*scaleY*y, 
+								offX+(2*x-y+2)*scaleX, offY+2*scaleY*y))) 
+			}
+			chess.Data["svg"] = append(chess.Data["svg"], 
+				template.HTML(
+					fmt.Sprintf(
+						"<polygon points='%d,%d %d,%d %d,%d' style='fill:#482;stroke:purple;stroke-width:1' />",
+							offX+(2*x-y+1)*scaleX, offY+scaleY*2+2*scaleY*y, 
+							offX+(2*x-y+2)*scaleX, offY+2*scaleY*y, 
+							offX+(2*x-y+3)*scaleX, offY+scaleY*2+2*scaleY*y)))
+			
+		}
+	}
+	for y := spaces; y<spaces*2; y++ {
+		for x := 0; x<spaces*3-y; x++ {
+			if x>0 {		
+				chess.Data["svg"] = append(chess.Data["svg"], 
+					template.HTML(
+						fmt.Sprintf(
+							"<polygon points='%d,%d %d,%d %d,%d' style='fill:#482;stroke:purple;stroke-width:1' />",
+								offX+(2*x+y+3-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y, 
+								offX+(2*x+y+2-spaces*2)*scaleX, offY+2*scaleY*y, 
+								offX+(2*x+y+1-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y)))	
+			}	
+			chess.Data["svg"] = append(chess.Data["svg"], 
+				template.HTML(
+					fmt.Sprintf(
+						"<polygon points='%d,%d %d,%d %d,%d' style='fill:#842;stroke:purple;stroke-width:1' />",
+							offX+(2*x+y+2-spaces*2)*scaleX, offY+2*scaleY*y, 
+							offX+(2*x+y+3-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y, 
+							offX+(2*x+y+4-spaces*2)*scaleX, offY+2*scaleY*y))) 
+			
+		}
+	}
+	chess.AddAJAXHandler("test123", mgs.TestAJAX)
+	chess.AddBypassSiteProcessor("secure")
+	
 
 	//	Shelf = []ecommerse.Category{
 	//		ecommerse.Category{"Oils", "Olive Oils", "oils.png"},

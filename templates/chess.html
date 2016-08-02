@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{page "head"}}
+		{{ajax "test" "test123" "test"}}
+	</head>
+	<body>
+		<div class="container">
+			<div class="row"> 
+				<div class="col-xs-6 dfn strong panel"><h1>{{.Title}}</h1></div>
+				<div class="col-xs-6"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					{{page "nav"}}
+				</div>
+				<div class="col-xs-10">
+					<svg xmlns="http://www.w3.org/2000/svg" height="720" width="960">
+						{{range index .Data "svg"}}
+							{{.}}
+						{{end}}
+					</svg>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

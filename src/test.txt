@@ -1,3 +1,3 @@
-background>>cyan
-background2>>../img/oliveOrchard1.bpg
+background>>cyan 0 0
+background2>>../img/oliveOrchard1.bpg 640 427
 test>>This is the sensavories website.
