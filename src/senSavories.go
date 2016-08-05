@@ -71,51 +71,36 @@ func setup() {
 	
 	chess := senSavories.AddPage("chess", "chess", "/chess")
 	
-	scaleX := 45
-	scaleY := 35
+	scaleX := 30
+	scaleY := 15
 	offX := 120
 	offY := 0
 	spaces := 4
+	perspective := 2
 	for y := 0; y<spaces; y++ {
+		scaleY += perspective
 		for x := 0; x<spaces+1+y; x++ {
 			if x>0 {				
 				chess.Data["svg"] = append(chess.Data["svg"], 
-					template.HTML(
-						fmt.Sprintf(
-							"<polygon points='%d,%d %d,%d %d,%d' style='fill:#842;stroke:purple;stroke-width:1' />",
-								offX+(2*x-y)*scaleX, offY+2*scaleY*y, 
-								offX+(2*x-y+1)*scaleX, offY+scaleY*2+2*scaleY*y, 
-								offX+(2*x-y+2)*scaleX, offY+2*scaleY*y))) 
+					triangle(offX,offY,scaleX,scaleY,perspective,
+					2*x-y,2*y,2*x-y+1,2*y+2,2*x-y+2,2*y,"#842",0))
 			}
 			chess.Data["svg"] = append(chess.Data["svg"], 
-				template.HTML(
-					fmt.Sprintf(
-						"<polygon points='%d,%d %d,%d %d,%d' style='fill:#482;stroke:purple;stroke-width:1' />",
-							offX+(2*x-y+1)*scaleX, offY+scaleY*2+2*scaleY*y, 
-							offX+(2*x-y+2)*scaleX, offY+2*scaleY*y, 
-							offX+(2*x-y+3)*scaleX, offY+scaleY*2+2*scaleY*y)))
-			
+				triangle(offX,offY,scaleX,scaleY,perspective,
+				2*x-y+1,2*y+2,2*x-y+2,2*y,2*x-y+3,2*y+2,"#482",1))
 		}
 	}
 	for y := spaces; y<spaces*2; y++ {
+		scaleY += perspective
 		for x := 0; x<spaces*3-y; x++ {
 			if x>0 {		
 				chess.Data["svg"] = append(chess.Data["svg"], 
-					template.HTML(
-						fmt.Sprintf(
-							"<polygon points='%d,%d %d,%d %d,%d' style='fill:#482;stroke:purple;stroke-width:1' />",
-								offX+(2*x+y+3-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y, 
-								offX+(2*x+y+2-spaces*2)*scaleX, offY+2*scaleY*y, 
-								offX+(2*x+y+1-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y)))	
+					triangle(offX,offY,scaleX,scaleY,perspective,
+					2*x+y+3-spaces*2,2*y+2,2*x+y+2-spaces*2,2*y,2*x+y+1-spaces*2,2*y+2,"#482",1))
 			}	
 			chess.Data["svg"] = append(chess.Data["svg"], 
-				template.HTML(
-					fmt.Sprintf(
-						"<polygon points='%d,%d %d,%d %d,%d' style='fill:#842;stroke:purple;stroke-width:1' />",
-							offX+(2*x+y+2-spaces*2)*scaleX, offY+2*scaleY*y, 
-							offX+(2*x+y+3-spaces*2)*scaleX, offY+scaleY*2+2*scaleY*y, 
-							offX+(2*x+y+4-spaces*2)*scaleX, offY+2*scaleY*y))) 
-			
+				triangle(offX,offY,scaleX,scaleY,perspective,
+				2*x+y+2-spaces*2,2*y,2*x+y+3-spaces*2,2*y+2,2*x+y+4-spaces*2,2*y,"#842",0))			
 		}
 	}
 	chess.AddAJAXHandler("test123", mgs.TestAJAX)
@@ -129,4 +114,12 @@ func setup() {
 	//		ecommerse.Category{"Teas", "Quality East African Teas", "teas.png"},
 	//		ecommerse.Category{"Coffee", "Coffee from Africa", "coffee.png"},
 	//	}
+}
+
+func triangle(offX,offY,scaleX,scaleY,perspective,px1,py1,px2,py2,px3,py3 int, color string, up int) template.HTML {
+	return template.HTML(fmt.Sprintf(
+		"<polygon points='%d,%d %d,%d %d,%d' style='fill:%s;stroke:purple;stroke-width:1' />",
+			offX+px1*(scaleX+scaleY+up*perspective), offY+py1*(scaleY+up*perspective), 
+			offX+px2*(scaleX+scaleY+(1-up)*perspective), offY+py2*(scaleY+(1-up)*perspective), 
+			offX+px3*(scaleX+scaleY+up*perspective), offY+py3*(scaleY+up*perspective), color))
 }
