@@ -2,9 +2,10 @@
 <html>
 	<head>
 		{{page "head"}}
-		{{ajax "test" "test123" "test"}}
+		{{ajax "url:test" "trigger:categories" "handler:categories" "target:categories"}}
+		{{ajax "url:test" "trigger:products" "handler:products" "target:products"}}
 	</head>
-	<body onload='setBackground("{{item "background" "0"}}","{{item "background" "1"}}","{{item "background" "2"}}")' >
+	<body onload='setBackground("{{item "background"}}")' >
 		<div class="container">
 			<div class="row"> 
 				<div class="col-xs-6 dfn strong panel"><h1>{{.Title}}</h1></div>
@@ -15,9 +16,11 @@
 					{{page "nav"}}
 				</div>
 				<div class="col-xs-10">
-					{{page "body"}}
-					{{target "test"}}
-					<input type="button" value="test" />
+					{{target "categories"}}
+					{{target "products"}}
+					<input id="categories-trigger" type="button" value="categories" />
+					<input id="products-trigger" type="button" value="products" />
+					<input id="selectedProduct" type="hidden" value="products" />
 				</div>
 			</div>
 		</div>
