@@ -2,8 +2,8 @@
 <html>
 	<head>
 		{{page "head"}}
-		{{ajax "url:test" "trigger:categories" "handler:categories" "target:categories"}}
-		{{ajax "url:test" "trigger:products" "handler:products" "target:products"}}
+		{{ajax  "var:selectedCategory" "var:lastSelectedCategory" "url:test" "trigger:categories" "handler:categories" "target:categories" `success:var ul = $( "<ul/>", {"class": "my-new-list"}); var obj = JSON.parse(data); $("#categories").empty(); $("#categories").append(ul); $.each(obj, function(i,val) { item = $(document.createElement('button')).text( i + '-/-' + val ); $(item).attr('onclick', 'selectedCategory = \"'+i+'\";'); ul.append( item ); ul.append( '<br/>' ); });`}}
+		{{ajax  "var:selectedProduct" "url:test" "trigger:products" "handler:products" "target:products" "data:'selectedCategory':selectedCategory"}}
 	</head>
 	<body onload='setBackground("{{item "background"}}")' >
 		<div class="container">
@@ -20,7 +20,6 @@
 					{{target "products"}}
 					<input id="categories-trigger" type="button" value="categories" />
 					<input id="products-trigger" type="button" value="products" />
-					<input id="selectedProduct" type="hidden" value="products" />
 				</div>
 			</div>
 		</div>

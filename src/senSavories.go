@@ -41,6 +41,10 @@ func setup() {
 	ecs.AddCategories("Spices", "African Spices", "spices.png")
 	ecs.AddCategories("Teas", "Quality East African Teas", "teas.png")
 	ecs.AddCategories("Coffee", "Coffee from Africa", "coffee.png")
+	ecs.AddProduct("Oils", "Orange Oil", "Virgin press olive oil with orange oil essence.", "OrangeOliveOil.bpg", 1790, 72)
+	ecs.AddProduct("Oils", "Sage Oil", "Virgin press olive oil with infused sage.", "SageOliveOil.bpg", 1590, 41)
+	ecs.AddProduct("Oils", "Fescheu Oil", "First press virgin olive oil from the Fescheu orchard.", "FescheuOliveOil.bpg", 1490, 95)
+	ecs.AddProduct("Coffee", "Kenyan Coffee", "Premier Karibou Coffee.", "KaribouCoffee.bpg", 1590, 33)
 
 	// template subpages
 	senSavories.AddPage("", "head", "")
@@ -56,4 +60,5 @@ func setup() {
 	test := senSavories.AddPage("test", "test", "/test")
 	test.AddAJAXHandler("categories", ecs.GetCategories)
 	test.AddAJAXHandler("products", ecs.GetProducts)
+	test.AddBypassSiteProcessor("secure")
 }
