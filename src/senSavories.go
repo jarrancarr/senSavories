@@ -22,7 +22,7 @@ func main() {
 
 func setup() {
 	//website
-	senSavories = website.CreateSite("senSavories", "localhost:8090")
+	senSavories = website.CreateSite("senSavories", "localhost:8090", "en")
 	senSavories.AddMenu("nav").
 		AddItem("Test", "/test").
 		AddItem("Home", "/home").
@@ -36,11 +36,11 @@ func setup() {
 	senSavories.AddService("ecommerse", ecs)
 	senSavories.AddSiteProcessor("secure", acs.CheckSecure)
 
-	ecs.AddCategories("Oils", "Olive Oils", "oils.png")
-	ecs.AddCategories("Vinegars", "Aged Balsamic Vinegars", "vinegars.png")
-	ecs.AddCategories("Spices", "African Spices", "spices.png")
-	ecs.AddCategories("Teas", "Quality East African Teas", "teas.png")
-	ecs.AddCategories("Coffee", "Coffee from Africa", "coffee.png")
+	ecs.AddCategory("Oils", "Olive Oils", "oils.png")
+	ecs.AddCategory("Vinegars", "Aged Balsamic Vinegars", "vinegars.png")
+	ecs.AddCategory("Spices", "African Spices", "spices.png")
+	ecs.AddCategory("Teas", "Quality East African Teas", "teas.png")
+	ecs.AddCategory("Coffee", "Coffee from Africa", "coffee.png")
 	ecs.AddProduct("Oils", "Orange Oil", "Virgin press olive oil with orange oil essence.", "OrangeOliveOil.bpg", 1790, 72)
 	ecs.AddProduct("Oils", "Sage Oil", "Virgin press olive oil with infused sage.", "SageOliveOil.bpg", 1590, 41)
 	ecs.AddProduct("Oils", "Fescheu Oil", "First press virgin olive oil from the Fescheu orchard.", "FescheuOliveOil.bpg", 1490, 95)
