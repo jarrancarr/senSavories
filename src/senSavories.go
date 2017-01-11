@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/jarrancarr/website"
+	"github.com/jarrancarr/website/html"
 	"github.com/jarrancarr/website/ecommerse"
 )
 
@@ -22,12 +23,13 @@ func main() {
 
 func setup() {
 	//website
-	senSavories = website.CreateSite("senSavories", "localhost:8090", "en")
-	senSavories.AddMenu("nav").
-		AddItem("Test", "/test").
-		AddItem("Home", "/home").
-		AddItem("Login", "/login").
-		Add("nav nav-pills nav-stacked", "", "")
+	senSavories = website.CreateSite("senSavories", "localhost:8090")
+	senSavories.Html.Tag("nav", 
+		html.NewTag("ul", "", "nav nav-pills nav-stacked", "", "").
+			AppendChild(html.NewTag("li", "", "", "", "").
+				AppendChild(html.NewTag2("a", "Test", []string{"href:::/test"}))).
+			AppendChild(html.NewTag("li", "", "", "", "Home")).
+			AppendChild(html.NewTag("li", "", "", "", "Login")))
 	
 	// services
 	acs := website.CreateAccountService()
