@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"fmt"
 	"net/http"
 
 	"github.com/jarrancarr/website"
@@ -24,12 +25,10 @@ func main() {
 func setup() {
 	//website
 	senSavories = website.CreateSite("senSavories", "localhost:8090")
-	senSavories.Html.Tag("nav", 
-		html.NewTag("ul", "", "nav nav-pills nav-stacked", "", "").
-			AppendChild(html.NewTag("li", "", "", "", "").
-				AppendChild(html.NewTag2("a", "Test", []string{"href:::/test"}))).
-			AppendChild(html.NewTag("li", "", "", "", "Home")).
-			AppendChild(html.NewTag("li", "", "", "", "Login")))
+	senSavories.Html.Tag("nav", html.NewTag3("ul", "", "nav nav-pills nav-stacked", "", "").
+		AppendChild(html.NewTag("li").AppendChild(html.NewTag("a href=/test Test"))).
+		AppendChild(html.NewTag("li").AppendChild(html.NewTag("a href=/home Home"))).
+		AppendChild(html.NewTag("li").AppendChild(html.NewTag("a href=/login Login"))))
 	
 	// services
 	acs := website.CreateAccountService()
